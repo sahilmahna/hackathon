@@ -1,0 +1,113 @@
+<!-- 
+
+<div>
+   
+    <mat-card>
+      
+        <i class="material-icons" style="color:#673ab7">
+            account_balance_wallet
+            </i>100</mat-card>
+
+</div> -->
+  <div style="margin-top: 2%;margin-left: 2%; border: 1px solid #BFBFBF;box-shadow: 10px 10px 5px #aaaaaa;">
+
+
+  <mat-tab-group  >
+    <mat-tab label="Add" *ngIf="currentUser=='localAgent'">   
+    
+    
+        <h4>{{firstHeader}} </h4>
+    
+    
+    <mat-form-field class="example-full-width" style="margin-top: 3%;margin-left: 2%">
+      <input matInput placeholder="Asset Detail" value="" [(ngModel)]="assetName">
+    </mat-form-field> 
+
+    <mat-form-field class="example-full-width" style="margin-top: 3%;margin-left: 2%">
+        <input matInput placeholder="Discription" value="" [(ngModel)]="assetDisc">
+      </mat-form-field> 
+    <br>
+    <button mat-button (click)="addAssets()" style="border: solid 1px #e7eff6;background-color: #58269d;color: white;">Add</button>
+  
+  </mat-tab>
+
+
+
+    <mat-tab label="Send" *ngIf="currentUser!='consumer'">
+      <h4>Transfer Asset </h4>
+      <mat-form-field>
+        <mat-label>To</mat-label>
+        <mat-select  (selectionChange)="onChange($event)" *ngIf="currentUser=='localAgent'">
+          <mat-option *ngFor="let user of users2" [value]="user.value">
+            {{user.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-select  (selectionChange)="onChange($event)" *ngIf="currentUser=='distributor'">
+            <mat-option *ngFor="let user of users4" [value]="user.value">
+              {{user.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-select  (selectionChange)="onChange($event)" *ngIf="currentUser=='logisticCompany'">
+              <mat-option *ngFor="let user of users3" [value]="user.value">
+                {{user.viewValue}}
+              </mat-option>
+            </mat-select>
+        
+      </mat-form-field>
+      <!-- <mat-form-field> -->
+      
+    
+    
+    
+          <mat-form-field class="example-full-width" style="margin-top: 3%;margin-left: 2%">
+          <mat-label>Assets</mat-label>
+
+              <mat-select  (selectionChange)="onChange2($event)">
+                  <mat-option *ngFor="let asset of finalAsset" [value]="asset.name">
+                    {{asset.displayName}}
+                  </mat-option>
+                </mat-select> 
+              </mat-form-field>
+    
+    <br>
+          <button mat-button (click)="sendAssets()" style="border: solid 1px #e7eff6;background-color: #58269d;color: white;">Send </button>
+    </mat-tab>
+
+
+
+    <!-- Third -->
+    <mat-tab label="History"> <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+    
+      <!-- Position Column -->
+      <ng-container matColumnDef="position" >
+        <th mat-header-cell *matHeaderCellDef> Tx Id </th>
+        <td mat-cell *matCellDef="let element">  {{element.blockhash| slice:0:15}} ...</td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Blockhash </th>
+        <td mat-cell *matCellDef="let element"> {{element.blockhash| slice:0:15}} ... </td>
+      </ng-container>
+    
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef> Asset </th>
+        <td mat-cell *matCellDef="let element"> {{element.balance?.assets[0]?.name }} </td>
+      </ng-container>
+    
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef> To Account</th>
+        <td mat-cell *matCellDef="let element"> {{element.addresses[0]?element.addresses[0]:"1LxerYWgrUcWjZukoDUsAwoTMfpBsKLS7mzKC7"}} </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-tab>
+  </mat-tab-group>
+</div>

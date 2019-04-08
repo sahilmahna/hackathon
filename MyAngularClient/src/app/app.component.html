@@ -1,11 +1,13 @@
 <mat-toolbar color="primary" class="expanded-toolbar">
   <button mat-button routerLink="/">{{title}}</button>
-
+<h1>nextGen Supply Chain</h1>
   <div fxLayout="row" fxShow="false" fxShow.gt-sm>
     <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
-    <button mat-button routerLink="/products">Products</button>
-    <button mat-button *ngIf="!isAuthenticated" (click)="login()"> Login </button>
-    <button mat-button *ngIf="isAuthenticated" (click)="logout()"> Logout </button>
+    <!-- <button mat-button routerLink="/new-cmp">Dashboard</button> -->
+    <button mat-button *ngIf="!currentUser" (click)="login()"> Login </button>
+    <button mat-button *ngIf="currentUser" > {{currentUser}} </button>
+
+    <button mat-button *ngIf="currentUser" (click)="logout()"> Logout </button>
   </div>
   <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
     <mat-icon>menu</mat-icon>

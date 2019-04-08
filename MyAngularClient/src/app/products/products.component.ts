@@ -19,6 +19,8 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("In Product");
+
     this.refresh();
   }
 
